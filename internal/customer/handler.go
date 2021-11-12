@@ -1,5 +1,5 @@
 package customer
 
-func Create() *customer {
+func Create() *Customer {
 	return create()
 }

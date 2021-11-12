@@ -1,9 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"github.com/biel-rodrigues/bank-account/internal/customer"
+	"github.com/bank-account/internal/customer"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,8 +16,12 @@ func main() {
 	})
 
 	r.GET("/customer/create", func(c *gin.Context) {
-		c.String(http.StatusOK, customer.Create)
+		returnCustomer(c.Writer, c.Request)
 	})
 
 	r.Run()
+}
+
+func returnCustomer(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(customer.Create())
 }

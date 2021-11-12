@@ -2,36 +2,36 @@ package customer
 
 import "time"
 
-type customer struct {
-	name      string
-	cpf       string
-	birthDate time.Time
-	address   address
+type Customer struct {
+	Name      string    `json:"name"`
+	Cpf       string    `json:"cpf"`
+	BirthDate time.Time `json:"birthDate"`
+	Address   Address   `json:"address"`
 }
 
-type address struct {
-	number       int
-	street       string
-	neighborhood string
-	city         string
-	state        string
-	country      string
-	cep          string
+type Address struct {
+	Number       int    `json:"number"`
+	Street       string `json:"street"`
+	Neighborhood string `json:"neighborhood"`
+	City         string `json:"city"`
+	State        string `json:"state"`
+	Country      string `json:"country"`
+	Cep          string `json:"cep"`
 }
 
-func new() *customer {
-	return &customer{
-		name:      "teste",
-		cpf:       "123",
-		birthDate: parseDate("2000-01-31"),
-		address: address{
-			number:       1,
-			street:       "rua a",
-			neighborhood: "bairro a",
-			city:         "cidade a",
-			state:        "estado a",
-			country:      "país a",
-			cep:          "cep 123",
+func new() *Customer {
+	return &Customer{
+		Name:      "teste",
+		Cpf:       "123",
+		BirthDate: parseDate("2000-01-31"),
+		Address: Address{
+			Number:       1,
+			Street:       "rua a",
+			Neighborhood: "bairro a",
+			City:         "cidade a",
+			State:        "estado a",
+			Country:      "país a",
+			Cep:          "cep 123",
 		},
 	}
 }
