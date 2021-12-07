@@ -1,15 +1,23 @@
 package customer
 
-import "time"
+import (
+	"time"
+
+	"github.com/bank-account/internal/dtos/request"
+	"gorm.io/gorm"
+)
 
 type Customer struct {
+	gorm.Model
 	Name      string    `json:"name"`
 	Cpf       string    `json:"cpf"`
-	BirthDate time.Time `json:"birthDate"`
-	Address   Address   `json:"address"`
+	BirthDate time.Time `json:"birthDate" gorm:"type:datetime"`
+	AddressID uint      `gorm:"column:address_id"`
+	Address   *Address  `json:"address"`
 }
 
 type Address struct {
+	gorm.Model
 	Number       int    `json:"number"`
 	Street       string `json:"street"`
 	Neighborhood string `json:"neighborhood"`
@@ -19,24 +27,22 @@ type Address struct {
 	Cep          string `json:"cep"`
 }
 
-func new() *Customer {
-	return &Customer{
-		Name:      "teste",
-		Cpf:       "123",
-		BirthDate: parseDate("2000-01-31"),
-		Address: Address{
-			Number:       1,
-			Street:       "rua a",
-			Neighborhood: "bairro a",
-			City:         "cidade a",
-			State:        "estado a",
-			Country:      "país a",
-			Cep:          "cep 123",
-		},
+func dtoToCustomer(dto request.Customer) *Customer {
+	a := Address{
+		Number:       dto.Address.Number,
+		Street:       dto.Address.Street,
+		Neighborhood: dto.Address.Neighborhood,
+		City:         dto.Address.City,
+		State:        dto.Address.State,
+		Country:      dto.Address.Country,
+		Cep:          dto.Address.Country,
 	}
-}
 
-func parseDate(date string) time.Time {
-	parsedDate, _ := time.Parse("2006-01-02", date)
-	return parsedDate
+	c := Customer{
+		Name:    dto.Name,
+		Cpf:     dto.Cpf,
+		Address: &a,
+	}
+
+	return &c
 }
