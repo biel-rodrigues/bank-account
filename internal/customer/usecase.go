@@ -5,8 +5,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func create(DB *gorm.DB, dto request.Customer) (response *Customer, err error) {
-	c := dtoToCustomer(dto)
+func create(DB *gorm.DB, DTO request.Customer) (response *Customer, err error) {
+	c := convert(DTO)
 
 	err = DB.Create(&c).Error
 	if err != nil {
@@ -21,12 +21,12 @@ func read(DB *gorm.DB, id interface{}) Customer {
 	return customer
 }
 
-func update(DB *gorm.DB, id interface{}, dto request.Customer) {
+func update(DB *gorm.DB, id interface{}, DTO request.Customer) {
 	var customer Customer
 	DB.Where("id=?", id).Find(&customer)
 
-	customer.Name = dto.Name
-	customer.Cpf = dto.Cpf
+	customer.Name = DTO.Name
+	customer.Cpf = DTO.Cpf
 	DB.Save(&customer)
 }
 
