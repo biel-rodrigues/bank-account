@@ -6,6 +6,7 @@ import (
 	"github.com/bank-account/internal/account"
 	"github.com/bank-account/internal/config"
 	"github.com/bank-account/internal/customer"
+	"github.com/bank-account/internal/transfer"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -49,5 +50,21 @@ func loadRoutes(r *gin.Engine) {
 
 	r.POST("/account/create", func(c *gin.Context) {
 		account.Create(c, DB)
+	})
+
+	r.GET("/account/read/:id", func(c *gin.Context) {
+		account.Read(c, DB)
+	})
+
+	r.GET("/account/read-by-number/:number", func(c *gin.Context) {
+		account.ReadByNumber(c, DB)
+	})
+
+	r.GET("/account/read-all/:customer_id", func(c *gin.Context) {
+		account.ReadAllByCustomerID(c, DB)
+	})
+
+	r.POST("/transfer", func(c *gin.Context) {
+		transfer.Create(c, DB)
 	})
 }

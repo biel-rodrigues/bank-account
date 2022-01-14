@@ -20,13 +20,13 @@ func Create(c *gin.Context, DB *gorm.DB) {
 		c.JSON(http.StatusBadRequest, gin.H{"vish": err})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"response": customer})
+	c.JSON(http.StatusOK, customer)
 }
 
 func Read(c *gin.Context, DB *gorm.DB) {
 	id := c.Param("id")
 	customer := read(DB, id)
-	c.JSON(http.StatusOK, gin.H{"response": customer})
+	c.JSON(http.StatusOK, customer)
 }
 
 func Update(c *gin.Context, DB *gorm.DB) {
