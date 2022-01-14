@@ -27,20 +27,20 @@ type Address struct {
 	Cep          string `json:"cep"`
 }
 
-func dtoToCustomer(dto request.Customer) *Customer {
+func convert(DTO request.Customer) *Customer {
 	a := Address{
-		Number:       dto.Address.Number,
-		Street:       dto.Address.Street,
-		Neighborhood: dto.Address.Neighborhood,
-		City:         dto.Address.City,
-		State:        dto.Address.State,
-		Country:      dto.Address.Country,
-		Cep:          dto.Address.Country,
+		Number:       DTO.Address.Number,
+		Street:       DTO.Address.Street,
+		Neighborhood: DTO.Address.Neighborhood,
+		City:         DTO.Address.City,
+		State:        DTO.Address.State,
+		Country:      DTO.Address.Country,
+		Cep:          DTO.Address.Country,
 	}
 
 	c := Customer{
-		Name:    dto.Name,
-		Cpf:     dto.Cpf,
+		Name:    DTO.Name,
+		Cpf:     DTO.Cpf,
 		Address: &a,
 	}
 

@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/bank-account/internal/account"
 	"github.com/bank-account/internal/config"
 	"github.com/bank-account/internal/customer"
 	"github.com/gin-gonic/gin"
@@ -22,6 +23,7 @@ func loadDB() {
 	DB = config.InitDb()
 	DB.AutoMigrate(&customer.Address{})
 	DB.AutoMigrate(&customer.Customer{})
+	DB.AutoMigrate(&account.Account{})
 }
 
 func loadRoutes(r *gin.Engine) {
@@ -43,5 +45,9 @@ func loadRoutes(r *gin.Engine) {
 
 	r.DELETE("/customer/delete/:id", func(c *gin.Context) {
 		customer.Delete(c, DB)
+	})
+
+	r.POST("/account/create", func(c *gin.Context) {
+		account.Create(c, DB)
 	})
 }

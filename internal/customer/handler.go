@@ -9,13 +9,13 @@ import (
 )
 
 func Create(c *gin.Context, DB *gorm.DB) {
-	var dto request.Customer
-	if err := c.ShouldBindJSON(&dto); err != nil {
+	var DTO request.Customer
+	if err := c.ShouldBindJSON(&DTO); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	customer, err := create(DB, dto)
+	customer, err := create(DB, DTO)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"vish": err})
 	}
@@ -30,14 +30,14 @@ func Read(c *gin.Context, DB *gorm.DB) {
 }
 
 func Update(c *gin.Context, DB *gorm.DB) {
-	var dto request.Customer
-	if err := c.ShouldBindJSON(&dto); err != nil {
+	var DTO request.Customer
+	if err := c.ShouldBindJSON(&DTO); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	id := c.Param("id")
-	update(DB, id, dto)
+	update(DB, id, DTO)
 
 	c.String(http.StatusOK, "Customer updated with success")
 }
